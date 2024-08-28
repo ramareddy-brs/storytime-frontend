@@ -10,6 +10,7 @@ const AuthorStoriesPage = () => {
   const { publisher, authorName, authorImage } = location.state;
 
   const [publisherStories, setPublisherStories] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // API query
   const { data: stories, isLoading: storiesloading } =
@@ -23,20 +24,25 @@ const AuthorStoriesPage = () => {
       },
     });
 
-      // Filter the explicit stories based on explicit property (this property will be present in response data)
+  // Filter the explicit stories based on explicit property
   useEffect(() => {
     if (stories) {
       const nonExplicitAuthorStories = stories.shows.items.filter(
         (story) => !story.explicit
       );
-    
+
       const filteredArray = nonExplicitAuthorStories.filter(
         (item) => item.publisher === publisher
       );
 
       setPublisherStories(filteredArray);
     }
-  }, [stories]);
+  }, [stories, publisher]);
+
+  // Filter stories based on search term
+  const filteredStories = publisherStories.filter((story) =>
+    story.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
@@ -118,12 +124,19 @@ const AuthorStoriesPage = () => {
             <h3 className="text-2xl text-white font-semibold tracking-tight hover:underline">
               Featured Stories
             </h3>
+            <input
+              type="text"
+              placeholder="Search Stories"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="p-2 rounded-md bg-white text-black"
+            />
           </header>
 
           {storiesloading ? (
             <LoadingSpinner />
-          ) : publisherStories?.length > 0 ? (
-            <AuthorStoriesList stories={publisherStories} />
+          ) : filteredStories?.length > 0 ? (
+            <AuthorStoriesList stories={filteredStories} />
           ) : (
             <p className="text-center my-16">No Stories to load.</p>
           )}
