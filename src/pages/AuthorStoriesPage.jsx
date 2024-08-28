@@ -71,7 +71,7 @@ const AuthorStoriesPage = () => {
                 <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z" />
               </svg>
             </li>
-
+            
             <li className="flex items-center text-white">
               <Link to="/authors" className="text-white" aria-current="page">
                 Authors
@@ -118,19 +118,22 @@ const AuthorStoriesPage = () => {
                   Follow
                 </button>
               </div>
+              
+              {/* Search Input Field */}
+              <input
+                type="text"
+                placeholder="Search Stories"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="p-2 mt-4 rounded-md bg-white text-black w-full"
+              />
             </div>
           </div>
           <header className="flex items-center justify-between mb-4">
             <h3 className="text-2xl text-white font-semibold tracking-tight hover:underline">
               Featured Stories
             </h3>
-            <input
-              type="text"
-              placeholder="Search Stories"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="p-2 rounded-md bg-white text-black"
-            />
+
           </header>
 
           {storiesloading ? (
