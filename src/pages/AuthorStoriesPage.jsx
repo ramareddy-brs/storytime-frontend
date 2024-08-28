@@ -47,6 +47,17 @@ const AuthorStoriesPage = () => {
   return (
     <>
       <div className="mx-16">
+        {/* Search Input Field at the Top */}
+        <div className="flex justify-center py-4">
+          <input
+            type="text"
+            placeholder="Search Authors"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="p-2 rounded-md bg-white text-black w-full max-w-lg"
+          />
+        </div>
+
         <nav className="text-black font-bold pt-10" aria-label="Breadcrumb">
           <ol className="list-none p-0 inline-flex text-white">
             <li className="inline-flex items-center text-white">
@@ -127,7 +138,7 @@ const AuthorStoriesPage = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="p-2 mt-4 rounded-md bg-white text-black w-full"
               />
-            </div>
+             </div>
           </div>
           <header className="flex items-center justify-between mb-4">
             <h3 className="text-2xl text-white font-semibold tracking-tight hover:underline">
